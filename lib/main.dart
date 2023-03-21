@@ -1,10 +1,13 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'models/items.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp( MyApp());
+
 }
+final style = TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
 
 hexCode (String colorHexCode) {
   colorHexCode = colorHexCode.replaceAll('#', '0xFF');
@@ -21,7 +24,11 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
             backgroundColor: Color(hexCode('#7A9E9F')),
-            title: Text("Living Room"),
+            title: Text("Living Room",
+            style: GoogleFonts.playfairDisplay(
+                textStyle: style
+            ),
+        ),
       ),
         body: RoomItemPage(),
     ));
@@ -64,15 +71,18 @@ class _RoomItemPageState extends State<RoomItemPage> {
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('Items',
-          style: TextStyle(
-              color: Color(0xff4f6367),
-              fontSize: 35,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title:  Text(
+            'Items',
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                color: Color(0xff4f6367),
+                fontSize: 35,
+              ),
+            ),
           ),
         ),
-      ),
       body: Column(
           children: [
             Expanded(
@@ -133,7 +143,7 @@ class _RoomItemPageState extends State<RoomItemPage> {
                       onPressed: addItem,
                       child: Text('Add Item'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFACB98B),
+                        backgroundColor: Color(0xFFACB98B),
                       ),
                     ),
                   ),
@@ -149,7 +159,7 @@ class _RoomItemPageState extends State<RoomItemPage> {
                       },
                       child: Text('Remove Item'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFFE5F55),
+                        backgroundColor: Color(0xFFFE5F55),
                       ),
                     ),
                   ),
