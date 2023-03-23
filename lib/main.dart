@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'models/items.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'widgets/bottom_sheet.dart';
 
 void main() {
   runApp( MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
             ),
         ),
       ),
-        body: RoomItemPage(),
+        body: const RoomItemPage(),
     ));
   }
 }
@@ -45,10 +46,10 @@ class RoomItemPage extends StatefulWidget {
 class _RoomItemPageState extends State<RoomItemPage> {
 
   final List<RoomItem> RoomItems = [
-    RoomItem(name: "Couch", imageAsset: "assets/item1.png"),
-    RoomItem(name: "Candle", imageAsset: "assets/item2.png"),
-    RoomItem(name: "TV", imageAsset: "assets/item3.png"),
-    RoomItem(name: "Coffee Table", imageAsset: "assets/item4.png"),
+    RoomItem(name: "Couch", imageAsset: "assets/item1.png", description: "This is a blue couch."),
+    RoomItem(name: "Candle", imageAsset: "assets/item2.png", description: "This is a candle."),
+    RoomItem(name: "TV", imageAsset: "assets/item3.png", description: "This is a TV."),
+    RoomItem(name: "Coffee Table", imageAsset: "assets/item4.png", description: "This is a coffee table."),
   ];
   int index = 0;
 
@@ -56,7 +57,8 @@ class _RoomItemPageState extends State<RoomItemPage> {
     setState(() {
       RoomItems.add(RoomItem(
           name: "New Item",
-          imageAsset: "assets/item5.png"));
+          imageAsset: "assets/item5.png",
+          description: "item"));
     });
   }
 
@@ -69,14 +71,13 @@ class _RoomItemPageState extends State<RoomItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           title:  Text(
             'Items',
             style: GoogleFonts.poppins(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Color(0xff4f6367),
                 fontSize: 35,
               ),
@@ -97,38 +98,46 @@ class _RoomItemPageState extends State<RoomItemPage> {
                           mainAxisSpacing: 20),
                     itemCount: RoomItems.length,
                     itemBuilder: (BuildContext ctx, index) {
-                    return Container(
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(3, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            RoomItems[index].imageAsset,
-                            width: 100,
-                            height: 100,
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                          RoomItems[index].name,
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    return GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) => BottomSheetWidget(roomItem: RoomItems[index])
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(3, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              RoomItems[index].imageAsset,
+                              width: 100,
+                              height: 100,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Text(
+                              RoomItems[index].name,
+                              style: const TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                 },
               ),
             ),
@@ -141,10 +150,10 @@ class _RoomItemPageState extends State<RoomItemPage> {
                     padding: EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: addItem,
-                      child: Text('Add Item'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFACB98B),
                       ),
+                      child: const Text('Add Item'),
                     ),
                   ),
                 ),
@@ -157,10 +166,10 @@ class _RoomItemPageState extends State<RoomItemPage> {
                           RoomItems.removeAt(index);
                         });
                       },
-                      child: Text('Remove Item'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFE5F55),
                       ),
+                      child: const Text('Remove Item'),
                     ),
                   ),
                 ),
