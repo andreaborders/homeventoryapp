@@ -41,7 +41,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homeventory'),
+        centerTitle: true,
+        backgroundColor: Color(hexCode('#7A9E9F')),
+        title:  Text(
+          'Homeventory',
+          style: GoogleFonts.playfairDisplay(
+            textStyle: const TextStyle(
+              fontSize: 35,
+            ),
+          ),
+        ),
         leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
