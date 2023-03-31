@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'roomItemPage.dart';
 import 'widgets/navigation_drawer.dart';
+import 'logOnPage.dart';
 
 void main() {
   runApp( MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Homeventory App',
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => MyHomePage()),
+        GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/roomItem', page: () => RoomItemPage()),
       ],
       builder: (context, child) {

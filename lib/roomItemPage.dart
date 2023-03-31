@@ -6,6 +6,8 @@ import 'widgets/bottom_sheet.dart';
 import 'package:get/get.dart';
 import 'main.dart';
 import 'widgets/navigation_drawer.dart';
+import 'logOnPage.dart';
+import 'itemFormX.dart';
 
 
 void main() {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => MyHomePage()),
+        GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/roomItem', page: () => const RoomItemPage()),
       ],
       builder: (context, child) {
@@ -74,29 +76,33 @@ class RoomItemPage extends StatefulWidget {
 
 class _RoomItemPageState extends State<RoomItemPage> {
 
-  final List<RoomItem> RoomItems = [
-    RoomItem(name: "Couch", imageAsset: "assets/item1.png", description: "This is a blue couch."),
-    RoomItem(name: "Candle", imageAsset: "assets/item2.png", description: "This is a candle."),
-    RoomItem(name: "TV", imageAsset: "assets/item3.png", description: "This is a TV."),
-    RoomItem(name: "Coffee Table", imageAsset: "assets/item4.png", description: "This is a coffee table."),
-  ];
-  int index = 0;
+  final List<Item> _items = [];
+  int? get index => null;
 
-  void addItem(){
-    setState(() {
-      RoomItems.add(RoomItem(
-          name: "New Item",
-          imageAsset: "assets/item5.png",
-          description: "item"));
-    });
+  // final List<RoomItem> RoomItems = [
+  //   RoomItem(name: "Couch", imageAsset: "assets/item1.png", description: "This is a blue couch."),
+  //   RoomItem(name: "Candle", imageAsset: "assets/item2.png", description: "This is a candle."),
+  //   RoomItem(name: "TV", imageAsset: "assets/item3.png", description: "This is a TV."),
+  //   RoomItem(name: "Coffee Table", imageAsset: "assets/item4.png", description: "This is a coffee table."),
+  // ];
+  // int index = 0;
+
+
+
+  void addItem() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return ItemFormPage();
+      },
+    );
   }
 
   void removeItem(int index){
     setState(() {
-      RoomItems.removeAt(index);
+      _items.removeAt(index);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -132,13 +138,13 @@ class _RoomItemPageState extends State<RoomItemPage> {
                       childAspectRatio: 1,
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20),
-                  itemCount: RoomItems.length,
+                  itemCount: _items.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return GestureDetector(
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => BottomSheetWidget(roomItem: RoomItems[index])
+                            builder: (context) => BottomSheetWidget(item: _items[index])
                         );
                       },
                       child: Container(
@@ -157,14 +163,14 @@ class _RoomItemPageState extends State<RoomItemPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              RoomItems[index].imageAsset,
-                              width: 100,
-                              height: 100,
-                            ),
+                            //Image.asset(
+                            //  _items[index].itemImage,
+                            //  width: 100,
+                            //  height: 100,
+                            // ),
                             const SizedBox(height: 10.0),
                             Text(
-                              RoomItems[index].name,
+                              _items[index].itemName?? '',
                               style: const TextStyle(
                                 fontSize: 25.0,
                                 fontWeight: FontWeight.bold,
@@ -199,7 +205,7 @@ class _RoomItemPageState extends State<RoomItemPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          RoomItems.removeAt(index);
+                          _items.removeAt(index!);
                         });
                       },
                       style: ElevatedButton.styleFrom(
