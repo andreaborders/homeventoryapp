@@ -1,39 +1,20 @@
 import 'package:flutter/material.dart';
 import '../models/items.dart';
-
+import '../itemFormX.dart';
 
 class BottomSheetWidget extends StatelessWidget {
-  final RoomItem roomItem;
+  final Item item;
 
-  const BottomSheetWidget({Key? key, required this.roomItem}) : super(key: key);
+  const BottomSheetWidget({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            roomItem.imageAsset,
-            width: 100,
-            height: 100,
-          ),
-          const SizedBox(height: 20.0),
-          Text(
-            roomItem.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
-          Text(
-            roomItem.description,
-            style: const TextStyle(
-              fontSize: 10.0,
-            ),
-          ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
@@ -41,6 +22,64 @@ class BottomSheetWidget extends StatelessWidget {
             ),
             child: const Text('Close Item'),
           ),
+          SizedBox(height: 20.0),
+          Text(
+            'Name: ${item.itemName}',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Type: ${item.itemType}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Subtype: ${item.itemSubtype}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Brand: ${item.itemBrand}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Model: ${item.itemModel}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Dimensions: ${item.itemDimensions}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Notes: ${item.itemNotes}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Color: ${item.itemColor}',
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 20.0),
         ],
       ),
     );

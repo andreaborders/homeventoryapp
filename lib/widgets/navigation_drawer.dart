@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
+hexCode (String colorHexCode) {
+  colorHexCode = colorHexCode.replaceAll('#', '0xFF');
+  return int.tryParse ( colorHexCode ) ?? 0xFFFFF;
+}
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key});
 
@@ -15,11 +20,11 @@ class AppDrawer extends StatelessWidget {
           DrawerHeader(
             child: Text('Homeventory Navigation'),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Color(hexCode('#7A9E9F')),
             ),
           ),
           ListTile(
-            title: Text('Home'),
+            title: Text('Log In Page'),
             onTap: () {
               Get.offNamed('/');
             },
