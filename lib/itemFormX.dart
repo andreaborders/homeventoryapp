@@ -4,6 +4,11 @@ import 'package:get/get.dart';
 import 'main.dart';
 import 'roomItemPage.dart';
 
+hexCode (String colorHexCode) {
+  colorHexCode = colorHexCode.replaceAll('#', '0xFF');
+  return int.tryParse ( colorHexCode ) ?? 0xFFFFF;
+}
+
 class Item {
   int? itemId;
   String? itemName;
@@ -34,8 +39,17 @@ class Item {
 
 class ItemController extends GetxController {
   final items = <Item>[].obs;
+  final highestId = 0.obs;
+
   void addItem(Item item) {
     items.add(item);
+    highestId.value = item.itemId!;
+  }
+
+  void removeItem(int index) {
+    final itemController = Get.find<ItemController>();
+    itemController.items.removeAt(index);
+    Get.back();
   }
 }
 
@@ -51,26 +65,29 @@ class ItemFormPage extends StatelessWidget {
   final _itemDimensionsController = TextEditingController();
   final _itemColorController = TextEditingController();
   final _notesController = TextEditingController();
-  final _highestId = 0.obs;
 
   ItemFormPage({super.key});
+
 
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final newItem = Item(
-        itemId: _highestId.value +1,
-        itemName: _itemNameController.text,
-        itemType: _itemTypeController.text,
-        itemSubtype: _itemSubtypeController.text,
-        itemBrand: _itemBrandController.text,
-        itemModel: _itemModelController.text,
-        itemDimensions: _itemDimensionsController.text,
-        itemColor: _itemColorController.text,
-        itemNotes: _notesController.text,
+        itemId: Get.find<ItemController>().highestId.value + 1,
+        itemName: _itemNameController.text!,
+        itemType: _itemTypeController.text!,
+        itemSubtype: _itemSubtypeController.text!,
+        itemBrand: _itemBrandController.text!,
+        itemModel: _itemModelController.text!,
+        itemDimensions: _itemDimensionsController.text!,
+        itemColor: _itemColorController.text!,
+        itemNotes: _notesController.text!,
       );
-      Get.find<ItemController>().addItem(newItem);
-      Get.back();
+
+      final itemController = Get.find<ItemController>();
+      itemController.addItem(newItem);
+
+      Get.off(() => const RoomItemPage());
     }
   }
 
@@ -79,6 +96,13 @@ class ItemFormPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Add New Item'),
         centerTitle: true,
+        backgroundColor: Color(hexCode('#7A9E9F')),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -126,6 +150,8 @@ class ItemFormPage extends StatelessWidget {
                 decoration: InputDecoration(labelText: 'Item Notes'),
                 validator: (value) => value!.isEmpty ? 'Please enter any additional item information' : null,
               ),
+
+              SizedBox(height: 5.0),
               ElevatedButton(
                 onPressed: _submitForm,
                 child: Text('Submit'),

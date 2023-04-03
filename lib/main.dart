@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import 'roomItemPage.dart';
 import 'widgets/navigation_drawer.dart';
 import 'logOnPage.dart';
+import 'itemFormX.dart';
+
 
 void main() {
+  Get.put(ItemController());
   runApp( MyApp());
 
 }
@@ -26,6 +29,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/roomItem', page: () => RoomItemPage()),
+        GetPage(name: '/itemForm', page: () => ItemFormPage()),
       ],
       builder: (context, child) {
         return Scaffold(
