@@ -18,7 +18,15 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            child: Text('Homeventory Navigation'),
+            child: Text(
+              'Homeventory Navigation',
+              style: GoogleFonts.playfairDisplay(
+                textStyle: TextStyle(
+                  fontSize: 35,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             decoration: BoxDecoration(
               color: Color(hexCode('#7A9E9F')),
             ),
@@ -27,6 +35,12 @@ class AppDrawer extends StatelessWidget {
             title: Text('Log In Page'),
             onTap: () {
               Get.offNamed('/');
+            },
+          ),
+          ListTile(
+            title: Text('Item Form Page'),
+            onTap: () {
+              Get.offNamed('/itemForm');
             },
           ),
           ListTile(
