@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/items.dart';
-import '../itemFormX.dart';
+import '../routes/itemForm.dart';
+
 
 class BottomSheetWidget extends StatelessWidget {
   final Item item;

@@ -2,11 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-
-hexCode (String colorHexCode) {
-  colorHexCode = colorHexCode.replaceAll('#', '0xFF');
-  return int.tryParse ( colorHexCode ) ?? 0xFFFFF;
-}
+import '../models/hexCode.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key});
@@ -47,6 +43,12 @@ class AppDrawer extends StatelessWidget {
             title: Text('Room Item Page'),
             onTap: () {
               Get.offNamed('/roomItem');
+            },
+          ),
+          ListTile(
+            title: Text('Upload Item Page'),
+            onTap: () {
+              Get.offNamed('/uploadImage');
             },
           ),
         ],
